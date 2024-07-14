@@ -40,8 +40,11 @@ class JsonReader:
             shape_descriptions = [shape_descriptions] if not isinstance(shape_descriptions, list) else shape_descriptions
             try:
                 for shape_description in shape_descriptions:
-                    shape = SHAPES_NAMES[shape_name](**shape_description)
-                    self.shapes.append(shape)
+                    try:
+                        shape = SHAPES_NAMES[shape_name](**shape_description)  # this is the python shape factory
+                        self.shapes.append(shape)
+                    except TypeError:
+                        print(f"Values {shape_description} are not valid for shape {shape_name}.")
             except KeyError:
                 print(f"Shape {shape_name} is not supported."
                       f"Check Json file definitions.")
