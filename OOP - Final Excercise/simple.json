@@ -1,0 +1,37 @@
+{
+  "Definitions": {
+  },
+  "Draw": {
+    "circle": {
+      "radius": 0.1,
+      "fill_color": "red"
+    },
+    "rectangle": [
+      {
+        "x": 0.1,
+        "y": 0.1,
+        "width": 0.1,
+        "height": 0.1,
+        "line_color": "red",
+        "fill_color": "blue"
+      },
+      {
+        "x": 0.3,
+        "y": 0.1,
+        "width": 0.1,
+        "height": 0.1,
+        "fill_color": "green"
+      }
+    ],
+    "triangle": {
+      "x1": 0.5,
+      "y1": 0.1,
+      "x2": 0.6,
+      "y2": 0.1,
+      "x3": 0.55,
+      "y3": 0.2,
+      "line_color": "red",
+      "fill_color": "blue"
+    }
+  }
+}
