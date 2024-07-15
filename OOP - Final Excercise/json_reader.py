@@ -1,53 +1,26 @@
 import json
-
-from point import Point
-from line import Line
-from rectangle import Rectangle
-from circle import Circle
-from triangle import Triangle
-
-
-SHAPES_NAMES = {
-    "point": Point,
-    "line": Line,
-    "rectangle": Rectangle,
-    "circle": Circle,
-    "triangle": Triangle
-}
+from shape_factory import ShapeFactory
 
 
 class JsonReader:
     def __init__(self, file_path):
         self.file_path = file_path
-        self.data = None
+        self.data = self.__read()
+        definitions = self.__load_definitions()
+        self.shape_factory = ShapeFactory(definitions)
         self.shapes = []
-        self.__read()
-        self.__load_definitions()
         self.__load_shapes()
-        self.get_shapes()
 
     def __read(self):
-        f = open(self.file_path, "r")
-        self.data = json.load(f)
-        f.close()
+        with open(self.file_path, "r") as f:
+            return json.load(f)
 
     def __load_definitions(self):
-        pass
+        return self.data["Definitions"] if "Definitions" in self.data else {}
 
     def __load_shapes(self):
         shapes = self.data["Draw"]
-        for shape_name, shape_descriptions in shapes.items():
-            shape_descriptions = [shape_descriptions] if not isinstance(shape_descriptions, list) else shape_descriptions
-            try:
-                for shape_description in shape_descriptions:
-                    try:
-                        shape = SHAPES_NAMES[shape_name](**shape_description)  # this is the python shape factory
-                        self.shapes.append(shape)
-                    except TypeError:
-                        print(f"Values {shape_description} are not valid for shape {shape_name}.")
-            except KeyError:
-                print(f"Shape {shape_name} is not supported."
-                      f"Check Json file definitions.")
+        self.shapes = self.shape_factory.create_shapes(shapes)
 
     def get_shapes(self):
         return self.shapes

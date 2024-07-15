@@ -1,8 +1,9 @@
-from shape import Shape
+from basic_shape import BasicShape
 from matplotlib.patches import Polygon
 
-class Triangle(Shape):
-    def __init__(self, x1, y1, x2, y2, x3, y3, line_color, fill_color):
+
+class Triangle(BasicShape):
+    def __init__(self, x1, y1, x2, y2, x3, y3, line_color="black", fill_color="white"):
         super().__init__(line_color, fill_color)
         self.x1 = x1
         self.y1 = y1

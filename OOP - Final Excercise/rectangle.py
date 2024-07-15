@@ -1,8 +1,8 @@
-from shape import Shape
+from basic_shape import BasicShape
 from matplotlib.patches import Rectangle as pltRectangle
 
 
-class Rectangle(Shape):
+class Rectangle(BasicShape):
     def __init__(self, x=0, y=0, width=10, height=10, line_color="black", fill_color="white"):
         super().__init__(line_color, fill_color)
         self.x = x
