@@ -1,4 +1,5 @@
 from typing import Iterable
+import matplotlib.pyplot as plt
 
 from shape import Shape
 
@@ -10,7 +11,7 @@ class CompositeShape(Shape):
                 raise TypeError("All elements must be of type Shape")
         self.shapes = shapes
 
-    def draw(self, axis):
+    def draw(self, axis: plt.Axes):
         for shape in self.shapes:
             shape.draw(axis)
 
@@ -32,17 +33,17 @@ class CompositeShape(Shape):
         #     cys.append(cy)
         # return sum(cxs) / len(cxs), sum(cys) / len(cys)
 
-    def rotate(self, degrees, x=None, y=None):
+    def rotate(self, degrees: float, x: float = None, y: float = None):
         if x is None or y is None:
             x, y = self._shape_center()
         for shape in self.shapes:
             shape.rotate(degrees, x, y)
 
-    def translate(self, x, y):
+    def translate(self, x: float, y: float):
         for shape in self.shapes:
             shape.translate(x, y)
 
-    def scale(self, factor):
+    def scale(self, factor: float):
         center_x, center_y = self._shape_center()
         for shape in self.shapes:
             shape.translate(-center_x, -center_y)
