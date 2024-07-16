@@ -1,9 +1,17 @@
 from abc import ABC, abstractmethod
+import matplotlib.pyplot as plt
+from enum import Enum
+
+
+class Operations(Enum):
+    ROTATION = "rotation"
+    TRANSLATION = "translation"
+    SCALE = "scale"
 
 
 class Shape(ABC):
     @abstractmethod
-    def draw(self, axis):
+    def draw(self, axis: plt.Axes):
         pass
 
     @abstractmethod
@@ -12,23 +20,23 @@ class Shape(ABC):
 
     def apply_operations(self, operations):
         for operation, values in operations.items():
-            if operation == "rotation":
+            if operation == Operations.ROTATION.value:
                 self.rotate(values)
-            elif operation == "translation":
+            elif operation == Operations.TRANSLATION.value:
                 self.translate(*values)
-            elif operation == "scale":
+            elif operation == Operations.SCALE.value:
                 self.scale(values)
             else:
                 print(f"Operation {operation} is not supported.")
 
     @abstractmethod
-    def rotate(self, degrees, x=None, y=None):
+    def rotate(self, degrees: float, x: float = None, y: float = None):
         pass
 
     @abstractmethod
-    def translate(self, x, y):
+    def translate(self, x: float, y: float):
         pass
 
     @abstractmethod
-    def scale(self, factor):
+    def scale(self, factor: float):
         pass

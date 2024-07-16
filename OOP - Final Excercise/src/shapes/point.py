@@ -1,9 +1,11 @@
 import numpy as np
-from shape import Shape
+from basic_shape import BasicShape
+import matplotlib.pyplot as plt
+import mpl_colors as mcolors
 
 
-class Point(Shape):
-    def __init__(self, x, y, line_color, fill_color):
+class Point(BasicShape):
+    def __init__(self, x: float, y: float, line_color: mcolors.Color, fill_color: mcolors.Color):
         super().__init__(line_color, fill_color)
         self.x = x
         self.y = y
@@ -11,10 +13,10 @@ class Point(Shape):
     def _shape_center(self):
         return self.x, self.y
 
-    def draw(self, axis):
+    def draw(self, axis: plt.Axes):
         axis.plot(self.x, self.y, 'o', color=self.line_color)
 
-    def rotate(self, degrees, x=None, y=None):
+    def rotate(self, degrees: float, x: float = None, y: float = None):
         temp_x = self.x - x
         temp_y = self.y - y
 
@@ -25,9 +27,9 @@ class Point(Shape):
         self.x = temp_x * cos - temp_y * sin + x
         self.y = temp_x * sin + temp_y * cos + y
 
-    def translate(self, x, y):
+    def translate(self, x: float, y: float):
         self.x += x
         self.y += y
 
-    def scale(self, factor):
+    def scale(self, factor: float):
         pass
