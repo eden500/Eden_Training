@@ -1,19 +1,6 @@
 from typing import Iterable
 
 from shape import Shape
-from point import Point
-from line import Line
-from rectangle import Rectangle
-from circle import Circle
-from triangle import Triangle
-
-SHAPES_NAMES = {
-        "point": Point,
-        "line": Line,
-        "rectangle": Rectangle,
-        "circle": Circle,
-        "triangle": Triangle
-    }
 
 
 class CompositeShape(Shape):
@@ -26,3 +13,40 @@ class CompositeShape(Shape):
     def draw(self, axis):
         for shape in self.shapes:
             shape.draw(axis)
+
+    def _shape_center(self):
+        # I decided to calculate the center of the bounding box of the shape created by the centers of the shapes,
+        # as I think this represent best how it may be in other applications.
+        max_x, max_y, min_x, min_y = -float("inf"), -float("inf"), float("inf"), float("inf")
+        for shape in self.shapes:
+            cx, cy = shape._shape_center()
+            max_x, max_y = max(max_x, cx), max(max_y, cy)
+            min_x, min_y = min(min_x, cx), min(min_y, cy)
+        return (max_x + min_x) / 2, (max_y + min_y) / 2
+
+        # other implementation for mean of centers
+        # cxs, cys = [], []
+        # for shape in self.shapes:
+        #     cx, cy = shape._shape_center()
+        #     cxs.append(cx)
+        #     cys.append(cy)
+        # return sum(cxs) / len(cxs), sum(cys) / len(cys)
+
+
+    def rotate(self, degrees, x=None, y=None):
+        if x is None or y is None:
+            x, y = self._shape_center()
+        for shape in self.shapes:
+            shape.rotate(degrees, x, y)
+            # shape.translate(center_x - cx, center_y - cy)
+
+    def translate(self, x, y):
+        for shape in self.shapes:
+            shape.translate(x, y)
+
+    def scale(self, factor):
+        center_x, center_y = self._shape_center()
+        for shape in self.shapes:
+            shape.translate(-center_x, -center_y)
+            shape.scale(factor)
+            shape.translate(center_x, center_y)

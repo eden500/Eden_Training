@@ -1,5 +1,6 @@
 from shape import Shape
 from abc import ABC
+import numpy as np
 
 
 class BasicShape(Shape, ABC):

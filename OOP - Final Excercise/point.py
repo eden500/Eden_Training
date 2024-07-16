@@ -9,3 +9,4 @@ class Point(Shape):
 
     def draw(self):
         print(f"Drawing point at ({self.x}, {self.y}) with line color {self.line_color} and fill color {self.fill_color}")
+

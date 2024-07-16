@@ -12,3 +12,16 @@ class Circle(BasicShape):
     def draw(self, axis):
         circle = pltCircle((self.x, self.y), self.radius, edgecolor=self.line_color, facecolor=self.fill_color)
         axis.add_artist(circle)
+
+    def _shape_center(self):
+        return self.x, self.y
+
+    def rotate(self, degrees, x=None, y=None):
+        pass
+
+    def translate(self, x, y):
+        self.x += x
+        self.y += y
+
+    def scale(self, factor):
+        self.radius *= factor

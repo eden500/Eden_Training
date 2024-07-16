@@ -3,6 +3,7 @@ from line import Line
 from rectangle import Rectangle
 from circle import Circle
 from triangle import Triangle
+from composite_shape import CompositeShape
 
 
 SHAPES_NAMES = {
@@ -12,6 +13,7 @@ SHAPES_NAMES = {
         "circle": Circle,
         "triangle": Triangle
     }
+
 
 class ShapeFactory:
     def __init__(self, additional_shapes={}):
@@ -25,13 +27,17 @@ class ShapeFactory:
         for shape_name, shape_descriptions in shapes_dict.items():
             shape_descriptions = [shape_descriptions] if not isinstance(shape_descriptions, list) else shape_descriptions
             for shape_description in shape_descriptions:
+                operations = shape_description.get("operations", {})
                 try:
                     if shape_name in SHAPES_NAMES:
                         shape = SHAPES_NAMES[shape_name](**shape_description)
+                        shape.apply_operations(operations)
                         created_shapes.append(shape)
                     elif shape_name in self.additional_shapes:
                         composite_shapes = self.additional_shapes[shape_name]
-                        created_shapes.extend(self.create_shapes(composite_shapes))
+                        composite_shape = CompositeShape(self.create_shapes(composite_shapes))
+                        composite_shape.apply_operations(operations)
+                        created_shapes.append(composite_shape)
                     else:
                         print(f"Shape {shape_name} is not supported. Check Json file definitions.")
                 except TypeError:
