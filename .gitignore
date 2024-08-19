@@ -1,5 +1,6 @@
 *.csv
 *.png
+*.gif
 .idea/
 *.jpg
 */__pycache__/*
