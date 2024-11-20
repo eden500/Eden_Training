@@ -1,0 +1,56 @@
+{
+  "Definitions": {
+    "house": {
+      "rectangle": [
+        {
+          "x": 0.1,
+          "y": 0,
+          "width": 0.25,
+          "height": 0.25,
+          "fill_color": "blue"
+        },
+        {
+          "x": 0.2,
+          "y": 0,
+          "width": 0.05,
+          "height": 0.1,
+          "fill_color": "white"
+        }
+      ],
+      "triangle": {
+        "x1": 0.1,
+        "y1": 0.25,
+        "x2": 0.225,
+        "y2": 0.375,
+        "x3": 0.35,
+        "y3": 0.25,
+        "fill_color": "red"
+      }
+    }
+  },
+  "Draw": {
+    "house": [
+      {
+        "operations": {
+          "scale": 0.5,
+          "rotation": 70
+        }
+      },
+      {
+        "operations": {
+          "scale": 0.5,
+          "translation": [0.2, 0]
+        }},
+      {
+        "operations": {
+          "scale": 0.5,
+          "translation":[0.4, 0]
+      }},
+        {
+          "operations": {
+            "scale": 0.5,
+            "translation": [0.6, 0]}
+      }
+    ]
+  }
+}
